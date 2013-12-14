@@ -85,8 +85,8 @@
 	CGFloat y = CGRectGetMidY(currentBounds) - diameter / 2 ;
 	
 	// get the caller's colors it they have been set or use the defaults
-	UIColor *drawOnColor = onColor ? onColor : [UIColor colorWithWhite: 1.0f alpha: 1.0f];
-	UIColor *drawOffColor = offColor ? offColor : [UIColor colorWithWhite: 0.7f alpha: 0.5f];
+	CGColorRef onColorCG = onColor ? onColor.CGColor : [UIColor colorWithWhite: 1.0f alpha: 1.0f].CGColor ;
+	CGColorRef offColorCG = offColor ? offColor.CGColor : [UIColor colorWithWhite: 0.7f alpha: 0.5f].CGColor ;
 	
 	// actually draw the dots
 	for (int i = 0 ; i < numberOfPages ; i++)
@@ -97,12 +97,12 @@
 		{
 			if (type == DDPageControlTypeOnFullOffFull || type == DDPageControlTypeOnFullOffEmpty)
 			{
-				CGContextSetFillColorWithColor(context, drawOnColor.CGColor) ;
+				CGContextSetFillColorWithColor(context, onColorCG) ;
 				CGContextFillEllipseInRect(context, CGRectInset(dotRect, -0.5f, -0.5f)) ;
 			}
 			else
 			{
-				CGContextSetStrokeColorWithColor(context, drawOnColor.CGColor) ;
+				CGContextSetStrokeColorWithColor(context, onColorCG) ;
 				CGContextStrokeEllipseInRect(context, dotRect) ;
 			}
 		}
@@ -110,12 +110,12 @@
 		{
 			if (type == DDPageControlTypeOnEmptyOffEmpty || type == DDPageControlTypeOnFullOffEmpty)
 			{
-				CGContextSetStrokeColorWithColor(context, drawOffColor.CGColor) ;
+				CGContextSetStrokeColorWithColor(context, offColorCG) ;
 				CGContextStrokeEllipseInRect(context, dotRect) ;
 			}
 			else
 			{
-				CGContextSetFillColorWithColor(context, drawOffColor.CGColor) ;
+				CGContextSetFillColorWithColor(context, offColorCG) ;
 				CGContextFillEllipseInRect(context, CGRectInset(dotRect, -0.5f, -0.5f)) ;
 			}
 		}
